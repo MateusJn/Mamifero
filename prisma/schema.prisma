@@ -1,0 +1,17 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Veado{
+  id Int @id @default(autoincrement())
+  nome String
+  descricao String
+  idade Int
+  temChifre Boolean
+}
