@@ -45,7 +45,7 @@ server.post('/veados', async (request, reply) => {
 });
 
 server.put('/veados/:id', async (request, reply) => {
-  const { id } = request.params as { id: string };
+  const { id } = request.params as { id: any };
   const { nome, descricao, idade, temChifre } = request.body as {
     nome: string;
     descricao: string;
