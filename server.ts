@@ -12,8 +12,8 @@ server.get('/veados', async (request, reply) => {
     veados = await prisma.veado.findMany({
       where: {
         OR: [
-          { name: { contains: search, mode: 'insensitive' } },
-          { description: { contains: search, mode: 'insensitive' } }
+          { nome: { contains: search, mode: 'insensitive' } },
+          { descricao: { contains: search, mode: 'insensitive' } }
         ]
       }
     });
@@ -24,56 +24,56 @@ server.get('/veados', async (request, reply) => {
   return veados;
 });
 
-server.post('/deers', async (request, reply) => {
-  const { name, description, age, hasAntlers } = request.body as {
-    name: string;
-    description: string;
-    age: number;
-    hasAntlers: boolean;
+server.post('/veados', async (request, reply) => {
+  const { nome, descricao, idade, temChifre } = request.body as {
+    nome: string;
+    descricao: string;
+    idade: number;
+    temChifre: boolean;
   };
 
-  const deer = await prisma.deer.create({
+  const veado = await prisma.veado.create({
     data: {
-      name,
-      description,
-      age,
-      hasAntlers,
+      nome,
+      descricao,
+      idade,
+      temChifre,
     },
   });
 
-  return deer;
+  return veado;
 });
 
-server.put('/deers/:id', async (request, reply) => {
+server.put('/veados/:id', async (request, reply) => {
   const { id } = request.params as { id: string };
-  const { name, description, age, hasAntlers } = request.body as {
-    name: string;
-    description: string;
-    age: number;
-    hasAntlers: boolean;
+  const { nome, descricao, idade, temChifre } = request.body as {
+    nome: string;
+    descricao: string;
+    idade: number;
+    temChifre: boolean;
   };
 
-  const updatedDeer = await prisma.deer.update({
+  const updatedVeado = await prisma.veado.update({
     where: { id: parseInt(id, 10) },
     data: {
-      name,
-      description,
-      age,
-      hasAntlers,
+      nome,
+      descricao,
+      idade,
+      temChifre,
     },
   });
 
-  return updatedDeer;
+  return updatedVeado;
 });
 
-server.delete('/deers/:id', async (request, reply) => {
+server.delete('/veados/:id', async (request, reply) => {
   const { id } = request.params as { id: string };
 
-  await prisma.deer.delete({
+  await prisma.veado.delete({
     where: { id: parseInt(id, 10) },
   });
 
-  return { message: 'Deer deleted successfully' };
+  return { message: 'Veado deletado com sucesso!' };
 });
 
 const start = async () => {
